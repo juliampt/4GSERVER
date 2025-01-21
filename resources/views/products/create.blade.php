@@ -1,8 +1,5 @@
-@extends('layouts.app')
-
-@section('title', 'Crear Producto')
-
-@section('content')
+<!-- resources/views/products/create.blade.php -->
+<x-layout title="Crear Producto">
     <h1 class="my-4">Crear Nuevo Producto</h1>
     <form action="{{ route('products.store') }}" method="POST">
         @csrf
@@ -28,4 +25,4 @@
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
-@endsection
+</x-layout>

@@ -46,4 +46,16 @@ class CartController extends Controller
 
         return redirect()->route('cart.index');
     }
+
+    public function show($id)
+{
+    $product = Product::find($id);
+
+    if (!$product) {
+        return redirect()->route('products.index')->with('error', 'Product not found.');
+    }
+
+    return view('products.show', compact('product'));
+}
+
 }

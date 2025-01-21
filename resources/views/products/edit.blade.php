@@ -1,8 +1,5 @@
-@extends('layouts.app')
-
-@section('title', 'Editar Producto')
-
-@section('content')
+<!-- resources/views/products/edit.blade.php -->
+<x-layout title="Editar Producto">
     <h1 class="my-4">Editar Producto</h1>
     <form action="{{ route('products.update', $product->id) }}" method="POST">
         @csrf
@@ -29,4 +26,4 @@
         </div>
         <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
-@endsection
+</x-layout>

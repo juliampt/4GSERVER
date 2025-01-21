@@ -1,8 +1,5 @@
-@extends('layouts.app')
-
-@section('title', 'Editar Categoría')
-
-@section('content')
+<!-- resources/views/categories/edit.blade.php -->
+<x-layout title="Editar Categoría">
     <h1 class="my-4">Editar Categoría</h1>
     <form action="{{ route('categories.update', $category->id) }}" method="POST">
         @csrf
@@ -13,4 +10,4 @@
         </div>
         <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
-@endsection
+</x-layout>

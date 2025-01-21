@@ -1,34 +1,42 @@
-@extends('layouts.app')
-
-@section('title', 'Carrito de Compras')
-
-@section('content')
+<!-- resources/views/cart/index.blade.php -->
+<x-layout title="Carrito de Compras">
     <h1 class="my-4">Carrito de Compras</h1>
-    @if($cartItems->isEmpty())
-        <p class="alert alert-info">Tu carrito está vacío.</p>
-    @else
-        <table class="table">
-            <thead>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Precio Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($cartItems as $cartItem)
                 <tr>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Acción</th>
+                    <td>
+                        @if ($cartItem->product->image)
+                            <img src="{{ asset('storage/' . $cartItem->product->image) }}" alt="{{ $cartItem->product->name }}" class="img-fluid" style="width: 50px; height: 50px; object-fit: cover;">
+                        @endif
+                    </td>
+                    <td>{{ $cartItem->product->name }}</td>
+                    <td>{{ $cartItem->quantity }}</td>
+                    <td>${{ $cartItem->product->price }}</td>
+                    <td>${{ $cartItem->product->price * $cartItem->quantity }}</td>
+                    <td>
+                        <form action="{{ route('cart.remove', $cartItem->product->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach($cartItems as $item)
-                    <tr>
-                        <td>{{ $item->product->name }}</td>
-                        <td>{{ $item->quantity }}</td>
-                        <td>
-                            <form action="{{ route('cart.remove', $item->product->id) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Eliminar uno</button>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @endif
-@endsection
+            @endforeach
+        </tbody>
+    </table>
+    <div class="text-right">
+        <h3>Total a Pagar: ${{ $cartItems->sum(function($cartItem) {
+            return $cartItem->product->price * $cartItem->quantity;
+        }) }}</h3>
+    </div>
+</x-layout>

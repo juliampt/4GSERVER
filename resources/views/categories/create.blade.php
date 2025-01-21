@@ -1,8 +1,5 @@
-@extends('layouts.app')
-
-@section('title', 'Crear Categoría')
-
-@section('content')
+<!-- resources/views/categories/create.blade.php -->
+<x-layout title="Crear Categoría">
     <h1 class="my-4">Crear Nueva Categoría</h1>
     <form action="{{ route('categories.store') }}" method="POST">
         @csrf
@@ -12,4 +9,4 @@
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
-@endsection
+</x-layout>
